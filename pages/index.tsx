@@ -4,6 +4,7 @@ import styles from "../styles/Home.module.scss";
 import Link from "next/link";
 
 const BLOG_URL = "https://smlblog-qc.herokuapp.com";
+const { CONTENT_API_KEY } = process.env;
 
 type Post = {
   title: string;
@@ -13,10 +14,11 @@ type Post = {
 
 async function getPost() {
   const res = await fetch(
-    `${BLOG_URL}/ghost/api/v3/content/posts/?key=${process.env.CONTENT_API_KEY}&fields=title,slug,excerpt,reading_time,feature_image`
+    `${BLOG_URL}/ghost/api/v3/content/posts/?key=${CONTENT_API_KEY}&fields=title,slug,custom_excerpt,reading_time,feature_image`
   ).then((res) => res.json());
 
   const posts = res.posts;
+  console.log(posts);
 
   return posts;
 }
